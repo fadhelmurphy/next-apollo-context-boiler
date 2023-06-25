@@ -1,16 +1,23 @@
 import ssrWrapper from "@/utils/wrapper";
 import { ISsrPropsContext } from "@/typings/interfaces/ISsrPropsContext";
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { IDrawer } from "@/typings/interfaces/drawer";
 import { useGetAllProduct } from "@/services/products";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import Pagination from "@/components/pagination";
+import { RootContext, useRootContext, useRootDispatch } from "@/store/store";
+import Drawer from "@/components/drawer";
+import { create } from "@/store/actions/collectionAction";
 
 const Layout = dynamic(() => import("@/containers/layout"))
 const ChildListProducts = dynamic(() => import("@/containers/child-list-products"))
+const CollectionCard = dynamic(() => import("@/components/collectioncard"), {ssr: false})
 
 export default function Home({ isMobile }: ISsrPropsContext) {
+  
+  const state: any = useRootContext();
+  const dispatch = useRootDispatch();
   const router = useRouter()
   const [showDrawer, setShowDrawer] = useState<IDrawer>({
     listCollection: false,
@@ -45,7 +52,7 @@ export default function Home({ isMobile }: ISsrPropsContext) {
     handleShowDrawer("listCollection", true);
   }, [handleShowDrawer]);
 
-  console.log(isMobile);
+  console.log(state);
   return (
     <>
       <Layout title="Home">
