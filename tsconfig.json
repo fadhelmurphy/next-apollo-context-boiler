@@ -15,7 +15,16 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "Components/*": ["./components/*"],
+      "Helpers/*": ["./helpers/*"],
+      "Hooks/*": ["./hooks/*"],
+      "Consts/*": ["./consts/*"],
+      "Store/*": ["./store/*"],
+      "Services/*": ["./services/*"],
+      "Types/*": ["./typings/types/*"],
+      "Interfaces/*": ["./typings/interfaces/*"],
+      "Queries/*": ["./queries/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
