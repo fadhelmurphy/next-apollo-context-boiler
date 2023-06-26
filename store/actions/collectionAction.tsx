@@ -2,7 +2,7 @@ import { getStateDispatch } from "@/utils/utils";
 
   // CRUD COLLECTION
 
-  export const create = (...args: any) => async (payload: any) => {
+  export const create = (...args: any) => (payload: any) => {
     const {state, dispatch} = getStateDispatch(args);
     dispatch({
       type: "ADD_TO_COLLECTION",
@@ -16,7 +16,7 @@ import { getStateDispatch } from "@/utils/utils";
       payload, // {name: Array, item: Object {}}
     });
   };
-  export const getOne = (...args: any) => async (name: string) => {
+  export const getOne = (...args: any) => (name: string) => {
     const {state, dispatch} = getStateDispatch(args);
     const get = state?.collection.AllCollection.filter(
       (item: any) => item.name.toLowerCase() === name.toLowerCase()

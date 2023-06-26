@@ -1,10 +1,10 @@
+import Button from "@/components/button";
 import React from "react";
-const Button = React.lazy(() => import("../../button"));
 
-export default function Desktop({ data = [], onChoose = () => {}, onInfo = () => {} }: any) {
+export default React.memo(function Desktop({ data = [], onChoose = () => {}, onInfo = () => {} }: any) {
   return (
     <>
-      {data?.map((item: any, idx: any) => (
+      {data.length > 0 && data?.map((item: any, idx: any) => (
         <div
           key={idx}
           className={`collection-card${item.selected ? " active" : ""}`}
@@ -52,7 +52,7 @@ export default function Desktop({ data = [], onChoose = () => {}, onInfo = () =>
           </div>
         </div>
       ))}
-      <style>
+      <style jsx>
         {`
           .collection-card {
             border: 1px solid #dfe3e8;
@@ -90,4 +90,4 @@ export default function Desktop({ data = [], onChoose = () => {}, onInfo = () =>
       </style>
     </>
   );
-}
+});

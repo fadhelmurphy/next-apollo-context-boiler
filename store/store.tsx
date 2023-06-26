@@ -22,7 +22,7 @@ export const RootDispatch = createContext({});
 
 export const STORAGE_KEY = "rootState";
 
-const selectedStateToPersist: string[] = [];
+const selectedStateToPersist: string[] = ["collection"];
 
 const Context = ({ children }: { children: JSX.Element }) => {
   //#COMBINE STATE
@@ -30,15 +30,11 @@ const Context = ({ children }: { children: JSX.Element }) => {
     rootReducer,
     initialState,
     () => {
-      const Local: string = typeof window !== 'undefined' ? (localStorage?.getItem(STORAGE_KEY) || "{}") : "{}";
-      const ParseLocal = JSON.parse(Local);
-      return Local ? ParseLocal : initialState;
+      const Local: string | null = typeof window !== 'undefined' ? (localStorage?.getItem(STORAGE_KEY)) : null;
+      return Local ? JSON.parse(Local) : initialState;
     }
   ); // some init state {}
-  const combinedDispatch = useCallback(
-    () => combineDispatch(dispatchCollection),
-    [dispatchCollection]
-  );
+  const combinedDispatch = useMemo(() => dispatchCollection, [dispatchCollection]);
   const combinedState = React.useMemo(
     () => ({ ...stateCollection }),
     [stateCollection]

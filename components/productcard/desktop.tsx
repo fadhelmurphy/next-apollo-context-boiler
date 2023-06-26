@@ -33,6 +33,9 @@ z-index: 1;
 const ProductCardDesktop = styled.div`
 border: 1px solid #ddd;
 border-radius: 10px;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
 & .img-product {
     border-radius: 10px 10px 0 0;
     width: 100%;

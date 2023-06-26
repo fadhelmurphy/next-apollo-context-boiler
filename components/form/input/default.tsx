@@ -47,6 +47,8 @@ const Input = ({
 		font-size: 14px;
 		line-height: 22px;
 		transition: all .3s ease;
+		background: white;
+		color: black;
 	} 
 	input::placeholder {
 		color: #919EAB;
