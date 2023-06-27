@@ -1,6 +1,6 @@
 import ssrWrapper from "@/utils/wrapper";
 import { ISsrPropsContext } from "@/typings/interfaces/ISsrPropsContext";
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useContext, useMemo, useState } from "react";
 import { IDrawer } from "@/typings/interfaces/drawer";
 import { useGetAllProduct } from "@/services/products";
 import dynamic from "next/dynamic";
@@ -8,9 +8,9 @@ import { useRouter } from "next/router";
 import { RootContext, useRootContext, useRootDispatch } from "@/store/store";
 import { create, createSubOne, getOne, getSubOne, updateSelectedCollection } from "@/store/actions/collectionAction";
 import { Input } from "@/components/form";
-import CollectionCard from "@/components/collectioncard";
 
 const Pagination = dynamic(() => import("@/components/pagination"))
+const CollectionCard = dynamic(() => import("@/components/collectioncard"))
 
 const Layout = dynamic(() => import("@/containers/layout"))
 const ChildListProducts = dynamic(() => import("@/containers/child-list-products"))
@@ -60,7 +60,6 @@ export default function Home({ isMobile }: ISsrPropsContext) {
   ;
 
   const onAdd = useCallback((val: object) => {
-    console.log(val, "DAPET");
     setSelectedAnime(val);
     handleShowDrawer("listCollection", true);
   }, [handleShowDrawer]);
@@ -116,29 +115,88 @@ export default function Home({ isMobile }: ISsrPropsContext) {
     [handleShowDrawer],
   );
 
-  
-  const HandleChooseCollection = (params: any) => {
-    const { key, selected } = params;
-
-    const updatedList =
-      state?.collection?.AllCollection &&
-      state?.collection?.AllCollection.map((item:any, idx:number) => {
-        if (idx === key) {
-          return { ...item, selected: !selected };
+  const yourCollectionOnBack = useCallback(
+    () => 
+    !isMobile
+      ? () => {
+          handleShowDrawer("listCollection", false);
         }
-        return { ...item };
-      });
+      : null,
+    [isMobile, handleShowDrawer],
+  );
+  
 
-    updateSelectedCollection(dispatch)(updatedList);
-  };
+  const newCollectionOnSave = useCallback(
+    () => {
+      if (!isNotValid) {
+        const isCollectionExist: any = getOne(state)(formNewCollection?.name);
+        if (!isCollectionExist) {
+          create(dispatch)({
+            name: formNewCollection?.name,
+            list: [],
+            selected: false,
+          });
+          handleShowDrawer("addCollection", false);
+          handleShowDrawer("listCollection", true);
+        } else {
+          alert("Name Already exist! Please choose another name");
+        }
+      }
+    },
+    [isNotValid, dispatch, handleShowDrawer, state, formNewCollection],
+  );
+  
+  const newCollectionInputOnChange = useCallback(
+    (val: any) => HandleChangeSelect("name", val),
+    [HandleChangeSelect],
+  )
+
+  const newCollectionINputIfNotValid = useCallback(
+    (val: any) => setNotValid(val),
+    [setNotValid],
+  );
+
+  const memoFormCollection = useMemo(() => formNewCollection?.name || "", [formNewCollection])
+  
+  
+  const newCollectionInputValidation = useMemo(() => !(formNewCollection?.name?.length > 0), [formNewCollection])
+  
+  const HandleChooseCollection = useCallback(
+    (params: any) => {
+      const { key, selected } = params;
+  
+      const updatedList =
+        state?.collection?.AllCollection &&
+        state?.collection?.AllCollection.map((item:any, idx:number) => {
+          if (idx === key) {
+            return { ...item, selected: !selected };
+          }
+          return { ...item };
+        });
+  
+      updateSelectedCollection(dispatch)(updatedList);
+    },
+    [state, dispatch],
+  )
+  ;
 
   
-  const HandleGetOneCollection = (name:any) => {
-    setCurrentCollection(getOne(state)(name));
-  };
+  const HandleGetOneCollection = useCallback(
+    (name:any) => {
+      setCurrentCollection(getOne(state)(name));
+    },
+    [state],
+  );
+
+  const yourCollectionCollectionCardOnChoose = useCallback(
+    ({ key, selected }: any) =>
+              HandleChooseCollection({
+                key,
+                selected,
+              }),
+    [HandleChooseCollection],
+  )
   
-  
-  console.log(state?.collection?.AllCollection);
   return (
     <>
       <Layout title="Home">
@@ -171,13 +229,7 @@ export default function Home({ isMobile }: ISsrPropsContext) {
         title="Your Collection"
         show={showDrawer && showDrawer.listCollection}
         onHide={yourCollectionOnHide}
-        onBack={
-          !isMobile
-            ? () => {
-                handleShowDrawer("listCollection", false);
-              }
-            : null
-        }
+        onBack={yourCollectionOnBack}
         onSave={yourCollectionOnSave}
         onSelect={yourCollectionOnSelect}
         type="type-1"
@@ -190,12 +242,7 @@ export default function Home({ isMobile }: ISsrPropsContext) {
           <CollectionCard
             type="detail"
             data={state?.collection?.AllCollection}
-            onChoose={({ key, selected }: any) =>
-              HandleChooseCollection({
-                key,
-                selected,
-              })
-            }
+            onChoose={yourCollectionCollectionCardOnChoose}
             onInfo={(val:any) => {
               HandleGetOneCollection(val.name);
               handleShowDrawer("detailCollection", true);
@@ -215,22 +262,7 @@ export default function Home({ isMobile }: ISsrPropsContext) {
         contentBackground="#ffffff"
         title="New Collection"
         show={showDrawer && showDrawer.addCollection}
-        onSave={() => {
-          if (!isNotValid) {
-            const isCollectionExist: any = getOne(state)(formNewCollection?.name);
-            if (!isCollectionExist) {
-              create(dispatch)({
-                name: formNewCollection?.name,
-                list: [],
-                selected: false,
-              });
-              handleShowDrawer("addCollection", false);
-              handleShowDrawer("listCollection", true);
-            } else {
-              alert("Name Already exist! Please choose another name");
-            }
-          }
-        }}
+        onSave={newCollectionOnSave}
         onBack={() => {
           handleShowDrawer("addCollection", false);
           handleShowDrawer("listCollection", true);
@@ -241,10 +273,10 @@ export default function Home({ isMobile }: ISsrPropsContext) {
         <div className="collection-list">
           <Input
             label="Name"
-            value={formNewCollection?.name || ""}
-            onChange={(val: any) => HandleChangeSelect("name", val)}
-            validation={!(formNewCollection?.name?.length > 0)}
-            ifNotValid={(val: any) => setNotValid(val)}
+            value={memoFormCollection}
+            onChange={newCollectionInputOnChange}
+            validation={newCollectionInputValidation}
+            ifNotValid={newCollectionINputIfNotValid}
             placeholder="Example : MEME"
           />
         </div>

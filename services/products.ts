@@ -1,5 +1,6 @@
 
   
+import ApolloState from "@/apollo-client";
 import { useQuery, gql } from "@apollo/client";
 import { useMemo } from "react";
   export const useGetAllProduct = ({page,perPage}: {page: number, perPage: number}): any => {
@@ -44,7 +45,7 @@ import { useMemo } from "react";
       return useMemo(() => ({result: (!loading && !error) && data.Page, loading, refetch}), [data, loading, error, refetch])
     };
 
-    export const useGetDetailProduct = ({id}: {id:number}): any => {
+    export const useGetDetailProduct = async (id: number) => {
       // This is the GraphQL query
       const query = gql`
       query Query($ID: Int) {
@@ -76,6 +77,6 @@ import { useMemo } from "react";
         let variables = {
           ID: id
         };
-        const { data, loading, error } = useQuery(query,{variables});
+        const { data, loading, error } = await ApolloState.query({query,variables});
         return {result: (!loading && !error) && data.Media, loading}
       };

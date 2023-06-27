@@ -41,3 +41,7 @@ export function combineReducers(slices: any) {
     })
     return {state, dispatch}
   }
+
+  export const capitalizeFirstLetter = (str: string) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
