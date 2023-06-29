@@ -4,6 +4,7 @@
 /* eslint-disable react/no-array-index-key */
 import PropTypes from "prop-types";
 import Default from "./default";
+import React from "react";
 
 const Template = [
 	{
@@ -34,4 +35,4 @@ ChildDetailPage.defaultProps = {
 	type: "default",
 };
 
-export default ChildDetailPage;
+export default React.memo(ChildDetailPage);

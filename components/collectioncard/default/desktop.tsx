@@ -107,8 +107,9 @@ export default React.memo(function Desktop({ data = [], onChoose = () => {}, onI
             background: #f9fafb;
             padding: 15px;
           }
-          .collection-card-footer .action button:not(:first-child) {
-            margin: 0 0 0 10px;
+          .collection-card-footer .action {
+            gap: 15px;
+            display: flex;
           }
         `}
       </style>

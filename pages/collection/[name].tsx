@@ -9,7 +9,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
-const Layout = dynamic(() => import("@/containers/layout"), {ssr: false})
+const Layout = dynamic(() => import("@/containers/layout"))
 const Button = dynamic(() => import("@/components/button"))
 const Drawer = dynamic(() => import("@/components/drawer"))
 
@@ -183,9 +183,10 @@ export default function Collection({ isMobile, name }: ISsrPropsContext) {
               background: #f9fafb;
               padding: 15px;
             }
-            .collection-card-footer .action button:not(:first-child) {
-              margin: 0 0 0 10px;
-            }
+          .collection-card-footer .action {
+            gap: 15px;
+            display: flex;
+          }
           `}
         </style>
         </>
