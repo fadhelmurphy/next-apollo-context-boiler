@@ -9,6 +9,7 @@ import { useRootContext, useRootDispatch } from "@/store/store";
 import { create, createSubOne, getOne, getSubOne, updateSelectedCollection } from "@/store/actions/collectionAction";
 import { Input } from "@/components/form";
 import Image from "next/image";
+import Spinner from "@/components/spinner";
 
 const Pagination = dynamic(() => import("@/components/pagination"))
 const CollectionCard = dynamic(() => import("@/components/collectioncard"))
@@ -40,14 +41,17 @@ export default function Home({ isMobile }: ISsrPropsContext) {
   const [formNewCollection, setFormNewCollection] = useState<any>(null);
   const [currentCollection, setCurrentCollection] = useState<any>();
   const [isNotValid, setNotValid] = useState(false);
-  const HandleChangeSelect = async (opt: string, val: any) => {
-    if (opt === "name") {
-      setFormNewCollection((prev: any) => ({
-        ...prev,
-        name: val,
-      }));
-    }
-  };
+  const HandleChangeSelect = useCallback(
+    (opt: string, val: any) => {
+      if (opt === "name") {
+        setFormNewCollection((prev: any) => ({
+          ...prev,
+          name: val,
+        }));
+      }
+    },
+    [],
+  );
 
   const HandleLoadMore = useCallback(
     async (e:any) => {
@@ -222,11 +226,11 @@ export default function Home({ isMobile }: ISsrPropsContext) {
     [HandleGetOneCollection, handleShowDrawer],
   )
   
-  
   return (
     <>
       <Layout title="Home">
         <div className="container">
+          {loading && <Spinner />}
           {result && result.media && (
             <ChildListProducts
               title="Movie list"
