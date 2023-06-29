@@ -135,4 +135,4 @@ Confirmation.propTypes = {
 	onSave: PropTypes.func,
 };
 
-export default Confirmation;
+export default React.memo(Confirmation);

@@ -224,4 +224,4 @@ Type3.propTypes = {
   // isEdit: PropTypes.bool,
 };
 
-export default Type3;
+export default React.memo(Type3);

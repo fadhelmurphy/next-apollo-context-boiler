@@ -146,6 +146,23 @@ export default function Home({ isMobile }: ISsrPropsContext) {
     },
     [isNotValid, dispatch, handleShowDrawer, state, formNewCollection],
   );
+  const newCollectionOnBack = useCallback(
+    () => {
+      handleShowDrawer("addCollection", false);
+      handleShowDrawer("listCollection", true);
+    },
+    [handleShowDrawer],
+  );
+
+  const currentCollectionOnBack = useCallback(
+    () => {
+      handleShowDrawer("listCollection", true);
+      handleShowDrawer("detailCollection", false);
+    },
+    [handleShowDrawer],
+  )
+  
+  
   
   const newCollectionInputOnChange = useCallback(
     (val: any) => HandleChangeSelect("name", val),
@@ -197,6 +214,14 @@ export default function Home({ isMobile }: ISsrPropsContext) {
               }),
     [HandleChooseCollection],
   )
+  const yourCollectionCollectionCardOnInfo = useCallback(
+    (val:any) => {
+      HandleGetOneCollection(val.name);
+      handleShowDrawer("detailCollection", true);
+    },
+    [HandleGetOneCollection, handleShowDrawer],
+  )
+  
   
   return (
     <>
@@ -244,10 +269,7 @@ export default function Home({ isMobile }: ISsrPropsContext) {
             type="detail"
             data={state?.collection?.AllCollection}
             onChoose={yourCollectionCollectionCardOnChoose}
-            onInfo={(val:any) => {
-              HandleGetOneCollection(val.name);
-              handleShowDrawer("detailCollection", true);
-            }}
+            onInfo={yourCollectionCollectionCardOnInfo}
             // onEdit={(val) => {
             //   HandleGetOneCollection(val.name);
             //   handleShowDrawer("editCollection", true);
@@ -264,10 +286,7 @@ export default function Home({ isMobile }: ISsrPropsContext) {
         title="New Collection"
         show={showDrawer && showDrawer.addCollection}
         onSave={newCollectionOnSave}
-        onBack={() => {
-          handleShowDrawer("addCollection", false);
-          handleShowDrawer("listCollection", true);
-        }}
+        onBack={newCollectionOnBack}
         type="type-1"
         saveTitle="SUBMIT"
       >
@@ -287,10 +306,7 @@ export default function Home({ isMobile }: ISsrPropsContext) {
         contentBackground="#ffffff"
         title={currentCollection?.name}
         show={showDrawer && showDrawer.detailCollection}
-        onBack={() => {
-          handleShowDrawer("listCollection", true);
-          handleShowDrawer("detailCollection", false);
-        }}
+        onBack={currentCollectionOnBack}
         type="type-1"
         saveTitle="ADD NEW COLLECTION"
       >

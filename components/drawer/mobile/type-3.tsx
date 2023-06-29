@@ -141,4 +141,4 @@ Type3.propTypes = {
 	onSave: PropTypes.func,
 };
 
-export default Type3;
+export default React.memo(Type3);

@@ -58,4 +58,4 @@ Drawer.defaultProps = {
 	saveTitle: "APPLY FILTER",
 };
 
-export default Drawer;
+export default React.memo(Drawer);

@@ -2,7 +2,7 @@ import React from "react";
 import Detail from "./detail";
 import Default from "./default";
 
-export default function CollectionCard({ isMobile, type, ...props }: any) {
+const CollectionCard = ({ isMobile, type, ...props }: any) => {
   const Template = [
     {
       id: "default",
@@ -26,3 +26,5 @@ export default function CollectionCard({ isMobile, type, ...props }: any) {
 CollectionCard.defaultProps = {
   type: "default"
 };
+
+export default React.memo(CollectionCard)

@@ -2,7 +2,7 @@ import Button from "@/components/button";
 import Image from "next/image";
 import React from "react";
 
-export default function Mobile({ data = [], onEdit = () => {}, onDelete = () => {} }: any) {
+export default React.memo(function Mobile({ data = [], onEdit = () => {}, onDelete = () => {} }: any) {
   return (
     <>
       {data?.map((item: any, idx: any) => (
@@ -113,4 +113,4 @@ export default function Mobile({ data = [], onEdit = () => {}, onDelete = () => 
       </style>
     </>
   );
-}
+})

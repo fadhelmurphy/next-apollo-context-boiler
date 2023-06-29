@@ -1,7 +1,7 @@
 import Button from "@/components/button";
 import React from "react";
 
-export default function Mobile({ data = [], onChoose = () => {}, onInfo = () => {} }: any) {
+export default React.memo(function Mobile({ data = [], onChoose = () => {}, onInfo = () => {} }: any) {
   return (
     <>
       {data?.map((item: any, idx: any) => (
@@ -52,7 +52,7 @@ export default function Mobile({ data = [], onChoose = () => {}, onInfo = () => 
           </div>
         </div>
       ))}
-      <style>
+      <style jsx>
         {`
           .collection-card {
             border: 1px solid #dfe3e8;
@@ -90,4 +90,4 @@ export default function Mobile({ data = [], onChoose = () => {}, onInfo = () => 
       </style>
     </>
   );
-}
+})

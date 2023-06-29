@@ -110,4 +110,4 @@ Type2.propTypes = {
 	onHide: PropTypes.func,
 };
 
-export default Type2;
+export default React.memo(Type2);

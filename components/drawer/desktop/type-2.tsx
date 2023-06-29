@@ -201,4 +201,4 @@ Type3.defaultProps = {
 	width: "650px",
 };
 
-export default Type3;
+export default React.memo(Type3);

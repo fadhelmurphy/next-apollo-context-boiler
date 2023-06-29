@@ -61,4 +61,4 @@ Mobile.propTypes = {
 	onSelect: PropTypes.func,
 };
 
-export default Mobile;
+export default React.memo(Mobile);
