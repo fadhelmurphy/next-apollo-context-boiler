@@ -9,6 +9,7 @@ import { capitalizeFirstLetter } from "@/utils/utils";
 import { useCallback, useState } from "react";
 import { IDrawer } from "@/typings/interfaces/drawer";
 import { Input } from "@/components/form";
+import Image from "next/image";
 const ChildDetailAnime = dynamic(() =>
   import("../../containers/child-detail-anime")
 );
@@ -204,7 +205,7 @@ export default function Detail({ isMobile, data: result }: ISsrPropsContext) {
                 <div className="collection-card-content">
                   <div className="grid">
                     <div className="col-4">
-                      <img src={item.coverImage.large} alt="image detail" />
+                      <Image fill src={item.coverImage.large} alt="image detail" />
                     </div>
                     <div className="col-8">
                       <h2>{item.title?.english || item.title?.romaji}</h2>
@@ -321,7 +322,11 @@ export default function Detail({ isMobile, data: result }: ISsrPropsContext) {
               cursor: pointer;
             }
             .collection-card-content .grid .col-4 {
-              padding: 10px;
+              margin: 10px;
+              height: 150px;
+              max-width: 150px;
+              position: relative;
+              object-fit: cover;
             }
             .collection-card-content .grid .col-4 img {
               width: 100%;

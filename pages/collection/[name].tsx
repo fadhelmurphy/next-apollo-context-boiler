@@ -6,6 +6,7 @@ import { capitalizeFirstLetter } from "@/utils/utils";
 import ssrWrapper from "@/utils/wrapper";
 import styled from "@emotion/styled";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 const Layout = dynamic(() => import("@/containers/layout"), {ssr: false})
@@ -67,7 +68,7 @@ export default function Collection({ isMobile, name }: ISsrPropsContext) {
                   <div className="collection-card-content">
                     <div className="grid">
                       <div className="col-4">
-                        <img src={item.coverImage.large} alt="image detail" />
+                        <Image fill src={item.coverImage.large} alt="image detail" />
                       </div>
                       <div className="col-8">
                         <h2 onClick={() => 
@@ -165,11 +166,14 @@ export default function Collection({ isMobile, name }: ISsrPropsContext) {
             }
             .collection-card-content .grid .col-8 {
               align-self: center;
-              padding: 10px;
+              margin: 10px;
+            }
+            .collection-card-content .grid .col-4 {
+              height: 150px;
+              max-width: 150px;
+              position: relative;
             }
             .collection-card-content .grid .col-4 img {
-              width: 100%;
-              height: 200px;
               object-fit: cover;
             }
             .collection-card-footer {

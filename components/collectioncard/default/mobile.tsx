@@ -1,4 +1,5 @@
 import Button from "@/components/button";
+import Image from "next/image";
 import React from "react";
 
 export default function Mobile({ data = [], onEdit = () => {}, onDelete = () => {} }: any) {
@@ -15,7 +16,7 @@ export default function Mobile({ data = [], onEdit = () => {}, onDelete = () => 
             </a>
             <div className="bannerImage">
             <a href={`/collection/${item.name}`}>
-              <img src={item.list[0]?.bannerImage || "https://via.placeholder.com/900x200?text=No%20Image%20Found"} alt={item.name}/>
+              <Image fill src={item.list[0]?.bannerImage || "https://via.placeholder.com/300x200?text=No%20Image%20Found"} alt={item.name}/>
               </a>
             </div>
           </div>
@@ -53,7 +54,7 @@ export default function Mobile({ data = [], onEdit = () => {}, onDelete = () => 
           </div>
         </div>
       ))}
-      <style>
+      <style jsx>
         {`
           .collection-card {
             border: 1px solid #dfe3e8;

@@ -241,6 +241,16 @@ const HandleChangeSelect = async (opt: string, val: any) => {
             />
           </div>
         </Drawer>
+        
+      <style jsx global>
+        {`
+          .collection-card-content .bannerImage img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        `}
+      </style>
         </>
     )
 }

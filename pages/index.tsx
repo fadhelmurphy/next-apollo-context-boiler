@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { RootContext, useRootContext, useRootDispatch } from "@/store/store";
 import { create, createSubOne, getOne, getSubOne, updateSelectedCollection } from "@/store/actions/collectionAction";
 import { Input } from "@/components/form";
+import Image from "next/image";
 
 const Pagination = dynamic(() => import("@/components/pagination"))
 const CollectionCard = dynamic(() => import("@/components/collectioncard"))
@@ -303,7 +304,7 @@ export default function Home({ isMobile }: ISsrPropsContext) {
               <div className="collection-card-content">
                 <div className="grid">
                   <div className="col-4">
-                    <img src={item.coverImage.large} alt="image detail" />
+                    <Image fill src={item.coverImage.large} alt="image detail" />
                   </div>
                   <div className="col-8">
                     <h2 onClick={() => 
@@ -350,6 +351,11 @@ export default function Home({ isMobile }: ISsrPropsContext) {
             grid-template-columns: 1fr;
             grid-gap: 16px;
             padding: 20px;
+          }
+          .collection-card-content .col-4 {
+            position: relative;
+            margin: 10px;
+            height: ${!isMobile ? "320px" : "115px"};
           }
           `}
         </style>

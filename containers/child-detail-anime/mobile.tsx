@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { css } from "@emotion/css";
+import Image from "next/image";
 export default function Mobile({ onAdd = () => {}, ...props }: any) {
   const {
     href = `/anime/${props.id}`,
@@ -82,13 +83,13 @@ export default function Mobile({ onAdd = () => {}, ...props }: any) {
         <div className="col-12">
           <div className="header">
             <div className="img-banner">
-              <img src={bannerImage} alt="banner image" />
+              <Image width={390} height={200} src={bannerImage} alt="banner image" />
             </div>
           </div>
           <div className="content grid">
             <div className="thumbnail col-12">
               <div className="img-detail">
-                <img src={large} alt="image detail" />
+                <Image width={350} height={160} src={large} alt="image detail" />
               </div>
             </div>
             <div className="description col-12">

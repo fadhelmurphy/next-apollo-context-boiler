@@ -4,7 +4,7 @@ const nextConfig = {
   webpack5: true,
   images: {
     formats: ['image/avif', 'image/webp'],
-    domains: ['s4.anilist.co'],
+    domains: ['s4.anilist.co', 'via.placeholder.com'],
   },
 	webpack: (config, options) => {
     // config.mode = "production";

@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { css } from "@emotion/css";
+import Image from "next/image";
 export default function Desktop({ onAdd = () => {}, ...props }: any) {
   const {
     href = `/anime/${props.id}`,
@@ -80,13 +81,13 @@ export default function Desktop({ onAdd = () => {}, ...props }: any) {
         <div className="col-12">
           <div className="header">
             <div className="img-banner">
-              <img src={bannerImage} alt="banner image" />
+              <Image width={1200} height={200} src={bannerImage} alt="banner image" />
             </div>
           </div>
           <div className="content grid">
             <div className="col-4">
               <div className="img-detail">
-                <img src={large} alt="image detail" />
+                <Image width={400} height={400} src={large} alt="image detail" />
               </div>
             </div>
             <div className="col-8">
