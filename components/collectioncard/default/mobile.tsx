@@ -1,5 +1,5 @@
+import Button from "@/components/button";
 import React from "react";
-const Button = React.lazy(() => import("../../button"));
 
 export default function Mobile({ data = [], onEdit = () => {}, onDelete = () => {} }: any) {
   return (
@@ -47,7 +47,7 @@ export default function Mobile({ data = [], onEdit = () => {}, onDelete = () => 
                   return onDelete(item);
                 }}
               >
-                DELETE
+                REMOVE
               </Button>
             </div>
           </div>

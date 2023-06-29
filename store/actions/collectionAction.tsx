@@ -18,9 +18,9 @@ import { getStateDispatch } from "@/utils/utils";
   };
   export const getOne = (...args: any) => (name: string) => {
     const {state, dispatch} = getStateDispatch(args);
-    const get = state?.collection.AllCollection.filter(
+    const get = state?.collection?.AllCollection.filter(
       (item: any) => item.name.toLowerCase() === name.toLowerCase()
-    );
+    ) || [];
     return get.length > 0 ? get[0] : false;
   };
   export const getSubOne = (...args: any) => (name: string, id: number) => {

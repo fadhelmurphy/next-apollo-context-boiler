@@ -1,5 +1,5 @@
+import Button from "@/components/button";
 import React from "react";
-const Button = React.lazy(() => import("../../button"));
 
 export default function Desktop({ data = [], onChoose = () => {}, onInfo = () => {}, onEdit = () => {}, onDelete = () => {} }: any) {
   return (
@@ -48,7 +48,7 @@ export default function Desktop({ data = [], onChoose = () => {}, onInfo = () =>
                     // deleteOne(item.name)
                 }}
               >
-                DELETE
+                REMOVE
               </Button>
             </div>
           </div>

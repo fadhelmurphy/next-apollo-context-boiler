@@ -115,7 +115,7 @@ export default function Home({ isMobile }: ISsrPropsContext) {
     [handleShowDrawer],
   );
 
-  const yourCollectionOnBack = useCallback(
+  const yourCollectionOnBack = useMemo(
     () => 
     !isMobile
       ? () => {

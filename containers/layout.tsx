@@ -48,7 +48,7 @@ const Menu = (props: any) => {
       >
         {props.menuList.map((item: any, index: number) => (
           <div key={String(index + 1)}>
-            <Link key={String(index + 1)} href={item.url}>
+            <Link key={String(index + 1)} href={item.url} prefetch={false}>
               {item.text}
             </Link>
           </div>
