@@ -3,7 +3,6 @@ import { ISsrPropsContext } from "@/typings/interfaces/ISsrPropsContext";
 import { create, createSubOne, getOne, getSubOne, updateSelectedCollection } from "@/store/actions/collectionAction";
 import { useRootContext, useRootDispatch } from "@/store/store";
 import dynamic from "next/dynamic";
-import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client'
 import { useGetDetailProduct } from "@/services/products";
 import { capitalizeFirstLetter } from "@/utils/utils";
 import { useCallback, useState } from "react";

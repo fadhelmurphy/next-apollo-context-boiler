@@ -1,11 +1,11 @@
 import ssrWrapper from "@/utils/wrapper";
 import { ISsrPropsContext } from "@/typings/interfaces/ISsrPropsContext";
-import React, { useCallback, useContext, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { IDrawer } from "@/typings/interfaces/drawer";
 import { useGetAllProduct } from "@/services/products";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import { RootContext, useRootContext, useRootDispatch } from "@/store/store";
+import { useRootContext, useRootDispatch } from "@/store/store";
 import { create, createSubOne, getOne, getSubOne, updateSelectedCollection } from "@/store/actions/collectionAction";
 import { Input } from "@/components/form";
 import Image from "next/image";
